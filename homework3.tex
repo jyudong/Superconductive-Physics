@@ -1,0 +1,169 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+%\usepackage{lipsum} used a paragraph to test the environment 
+\usepackage{listings}
+%\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{超导物理第三次作业}
+\author{董建宇 ~~ 202328000807038}
+
+%\setlength{\parindent}{2pt}
+
+\begin{document}
+
+\maketitle
+
+\textbf{1.} 理想第二类超导体中，平均磁感应强度为$\mathbf{B}$，计算四方和三角两种磁通点阵的点阵常数$\mathbf{a}_\square$和$\mathbf{a}_\triangle$，并定型讨论哪一种点阵能量更低。
+
+\begin{proof}
+对于三角格子，平均每个三角形面积内有$\frac{\Phi_0}{2}$磁通，则有：
+\[
+	B = \frac{Phi_0/2}{\frac{\sqrt{3}}{4}a_\triangle^2}.
+\]
+
+即
+\[
+	a_\triangle = \sqrt{\frac{2\Phi_0}{\sqrt{3}B}}.
+\]
+
+对于四方格子，平均每个正方形面积内有$\Phi_0$磁通，则有：
+\[
+	B = \frac{\Phi_0}{a_\square^2}.
+\]
+
+即
+\[
+	a_\square = \sqrt{\frac{\Phi_0}{B}}.
+\]
+
+设$g_{SH}$为无磁通线时Gibbs自由能，$g_{MH}$为有磁通线时Gibbs自由能，则
+\[
+	g_{MH} = g_{SH} + nE_l - BH + \frac{nZ}{2}u_l = g_{SH} + B \left( H_{c1} - H + \frac{Z\Phi_0}{4\pi\mu_0\lambda^2} \sqrt{\frac{\pi\lambda}{2a}} e^{-a/\lambda} \right)
+\]
+
+只有最后一项与$a$有关，记作$A$，带入$a_\triangle = \sqrt{\frac{2}{\sqrt{3}}}a_\square$可得：
+\[
+	A_\triangle = \frac{3}{2}\left( \frac{\sqrt{3}}{2} \right)^{1/4} \exp\left[ \left( 1-\sqrt{\frac{2}{\sqrt{3}}} \right) \frac{a_\square}{\lambda} \right] A_\square \approx 1.447 e^{-0.075a_\square/\lambda} A_{\square}.
+\]
+
+由于$a_\square \gg \lambda$，则$A_{\triangle} < A_\square$。即三角格子能量更低。
+\end{proof}
+
+\medskip
+
+\textbf{2.} 在第二类超导体混合态，(1)计算与样品表面平行的磁通线与表面相互作用能。(2)并根据结果讨论在不同磁场下，相互作用能是如何变化的。(参考章立源《超导物理学》)
+
+提示，考虑1D情形，样品表面$x=0$，磁通线位于$x=x_L$。边界条件为:$x=0$时，$b=\mu_0 H, \ (\nabla\times b)_x = 0$(表面法线方向无电流)。
+
+样品中任意$x$处的磁场，$b_t = b_1 + b_2$, $b_1 = \mu_0 H \exp(-x/\lambda_L)$为无磁通线时的磁场。$b_2$为磁通线产生的磁场，可以通过镜像法得到，即在$-x_L$有一个反向的磁场，$b_2$是磁通线及其镜像位置反平行磁通产生的磁场的总和。
+
+利用推导磁通线能量的方法，可以计算得到单位长度的Gibbs自由能为：
+\[
+	G = \frac{\Phi_0}{\mu_0}\left[ b_1(x_L) - \frac{1}{2}b_2(2x_L) + \mu_0(H_{cl} - H) \right]
+\]
+
+这里公式中$b$为单个磁通线周围的磁场分布表达式。利用讲过的$b_1$和$b$的表达式可以得到
+\begin{align*}
+	G =& \Phi_0 H e^{-x_L/x} - \frac{1}{4\pi\mu_0} \left( \frac{\Phi_0}{\lambda_L} \right)^2 K_0 \left( \frac{2x_L}{\lambda_L} \right) + (H_{cl} - H) \Phi_0. \\
+	G =& \Phi_0 H e^{-x_L/x} - \frac{1}{4\pi\mu_0} \left( \frac{\Phi_0}{\lambda_L} \right)^2 \ln \left( \frac{2x_L}{\lambda_L} \right) + (H_{cl} - H) \Phi_0. \ \ (\xi \leq x_L << \lambda_L)
+\end{align*}
+
+\begin{proof}
+考虑无限大表面内部$l$处没有$z$方向的磁通线。
+
+无磁通线时，$\vec{B}_1 = \mu_0 \vec{H} \exp(-x/\lambda)$，满足
+\[
+	\vec{B}_1 - \lambda^2\nabla^2 \vec{B}_1 = 0; \ \ \ \vec{B}_1(0) = \mu_0 \vec{H}.
+\]
+
+有磁通线时，超导体内部磁感应强度满足：
+\[
+	\vec{B} - \lambda^2\nabla^2 \vec{B} = \Phi_0 \delta_z(\vec{x} - \vec{x}_L).
+\]
+
+则有：
+\[
+	\vec{B}_2 = \frac{\Phi_0}{2\pi\lambda^2} K_0((x-x_L)/\lambda) \vec{e}_z; \ \ \ \vec{J}_2 = \frac{\Phi_0}{2\pi\mu_0\lambda^2} K_1((x-x_L)/\lambda) \left( \vec{e}_z \times \frac{\vec{x}-\vec{x}_L}{\vert \vec{x}-\vec{x}_L \vert} \right).
+\]
+
+但其不满足$J_\perp(0) = 0$的边界条件。
+
+考虑在无穷大超导体内部$-\vec{x}_L$处反向磁通产生的磁场$\vec{B}_3$，$\vec{B} = \vec{B}_1 + \vec{B}_2 + \vec{B}_3$在$x>0$处满足
+\[
+	\vec{B} - \lambda^2\nabla^2 \vec{B} = \Phi_0 \delta_z(\vec{x} - \vec{x}_L).
+\]
+
+且满足$\vec{B}(0) = \mu_0\vec{H}; \ \vec{J}_\perp(0) = 0$。
+
+已知对于相距$a$的两磁通线相互作用能为：
+\[
+	u_L = \lambda^2 \iint (\vec{b}_1 \times \vec{J}_{s2}) \cdot d\vec{S} = b_1(a) \Phi_0 /\mu_0.
+\]
+
+则可以计算：
+\begin{align*}
+	E_L =& E_{L0} - \int_{x_L}^\infty (B_1'(x) + B_{relative}'(2x)) \frac{\Phi_0}{\mu_0} dx \\
+	=& E_{L0} + \mu_0 H \exp\left( -\frac{x_L}{\lambda} \right) \frac{\Phi_0}{\mu_0} - \frac{1}{2}\frac{\Phi_0}{\mu_0} \int_{x_L}^\infty dB_{relative}(2x) \\
+	=& E_{L0} + \mu_0H \exp\left(-\frac{x_L}{\lambda}\right) \frac{\Phi_0}{\mu_0} + \frac{\Phi_0^2}{4\pi\mu_0\lambda^2}
+\end{align*}
+\[
+	E_L = \iint \frac{\lambda^2}{2} (\vec{B} \times \vec{J}_s) \cdot d\vec{S} = \frac{1}{2} \Phi_0 H \exp(-x_L/\lambda) + \frac{\Phi_0^2}{4\pi\mu_0\lambda^2} K_0(2x_L/\lambda) + \Phi_0 H_{c1}.
+\]
+
+\[
+	g = nE_l - BH = n\left( \frac{1}{2}\Phi_0 H \exp(-x_L/\lambda) + \frac{\Phi_0^2}{4\pi\mu_0\lambda^2}K_0(2x_L/\lambda) + \Phi_0(H_{c1}- H) \right)
+\]
+
+则每个磁通线与边界相互作用能为：
+\[
+	\frac{1}{2}\Phi_0 H \exp(-x_L/\lambda) + \frac{\Phi_0^2}{4\pi\mu_0\lambda^2}K_0(2x_L/\lambda) + \Phi_0(H_{c1}- H).
+\]
+\end{proof}
+
+\medskip
+
+\textbf{3.} 对于一个直径为$D$的球形非理想第二类超导体，利用临界态模型计算磁滞回 线得到的磁化强度差$\Delta M$和临界电流密度$J_C$之间有关系:$J_C ~ 3.4\Delta M /D$(单位用国际单位制： $J_C:A/m^2$, $\Delta M:A/m$, $D:m$)
+
+\begin{proof}
+由对称性可得：
+\[
+	\vec{H} = H_r(r, \theta) \vec{e}_r + H_\theta(r, \theta) \vec{e}_\theta
+\]
+
+则电流密度为：
+\[
+	\vec{J} = \nabla \times \vec{H} = \vec{e}_\phi \left( \frac{\partial}{\partial r}H_\theta - \frac{1}{r}\frac{\partial}{\partial \theta} H_r + \frac{1}{r}H_\theta \right) \propto \vec{e}\phi.
+\]
+
+即超导球内只有$\vec{e}_\phi$方向电流密度，且大小为定值$J_c$。则
+\[
+	\vec{J} = \left\{ \begin{aligned}
+		-J_c \vec{e}_\phi,& \ \ &H\uparrow; \\
+		J_c \vec{e}_\phi,& \ \ &H\downarrow.
+	\end{aligned} \right.
+\]
+
+则磁化强度的差为：
+\[
+	\Delta m = \frac{1}{\frac{4}{3}\pi R^3} 2 \int_0^{\pi/2} J_c \pi (R\sin\theta)^2 2R\cos\theta d(R\sin\theta) = \frac{3}{16}\pi J_c R = \frac{3}{32}\pi J_c D.
+\]
+
+即
+\[
+	J_c = \frac{32}{3\pi} \frac{\Delta m}{D} \sim 3.4\frac{\Delta m}{D}.
+\]
+\end{proof}
+
+
+
+\end{document}
