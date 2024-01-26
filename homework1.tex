@@ -1,0 +1,167 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+\RequirePackage[most]{tcolorbox}
+%\usepackage[most]{tcolorbox}
+\usepackage{float}     %可以在colorbox环境下添加table环境 此时，\begin{table}[H] 位置需要H
+\usepackage{fontspec}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+%\newCJKfontfamily{\heiti}[]
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{超导物理作业}
+\author{董建宇 ~~ 202328000807038}
+
+\begin{document}
+
+\maketitle
+\titleformat{\section}[hang]{\small}{\thesection}{0.8em}{}{}
+\titleformat{\subsection}[hang]{\small}{\thesubsection}{0.8em}{}{}
+
+\begin{enumerate}[1.]
+\item 
+\begin{enumerate}[(1)]
+\item 超导有哪些基本特性？讨论超导体与理想导体的区别。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+超导体具有\textbf{零电阻}和\textbf{完全抗磁性(Meissner效应)}。
+
+对于超导体，在临界温度以上(正常态)施加磁场，随后降低温度至临界温度以下进入超导态，超导体内部的磁场会被排出，超导体内部磁感应强度为0，撤去磁场后，超导体内部磁感应强度仍为0；
+
+对于理想导体，在临界温度以上施加磁场，随后降低温度至临界温度以下，此时磁感线仍穿过理想导体，此时撤去外磁场，会产生感生电流，使得理想导体内部磁感应强度保持不变。
+\end{tcolorbox}
+
+\item 如何确定超导体电阻是否确实为零?
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+将超导材料加工成环形，通入电流，测量其周围磁感应强度随时间变化，若磁感应强度不随时间变化，则电流不变，即超导体电阻为零。
+\end{tcolorbox}
+
+\item 列出你所知道的几种转变温度高于 40K 的超导体。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+铁基超导体如：铁硒(FeSe)薄膜；铜基超导体如：Bi-Sr-Ca-Cu-O薄膜(2212、2223)。
+\end{tcolorbox}
+\end{enumerate}
+
+\item 如何在一个超导环中产生电流?对一个用半径$r_1=0.1mm$超导线做成的半径$r0=1mm$的超导环，如环中心磁场为$10^{-3}T$，估计环流$I_s$的大小。估计超导环表面的磁场大小。
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+在临界温度以上，将超导环放置在磁场环境下待系统进入稳定状态，此时超导环内没有电流；随后将温度冷却至临界温度以下，超导环进入超导态，此时撤去磁场，超导环内就会产生电流。
+
+超导环中心磁场强度大小为：
+\[
+	B = \frac{\mu_0 I_s}{2r_0}.
+\]
+可以计算环流大小约为：
+\[
+	I_s = 1.59A.
+\]
+当该环流均匀流过超导环截面时，可以计算超导环表面磁场为：
+\[
+	B_S = \frac{\mu_0 I_s}{2\pi r_1} = \frac{10}{\pi} B = 3.18 \times 10^{-3} T.
+\]
+\end{tcolorbox}
+
+\item 
+\begin{enumerate}
+	\item 利用自有能函数，推导超导体在$T_c$处比热的跳变变化$\Delta C/C_n = (C_n-C_s)/C_n$。根据表1所列的超导转变温度$T_c$和零温下临界磁场$B_c(0)$的值计算超导体铝、铌、铅的$\Delta C/C_n$。
+	\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		{} & Al & Nb & Pb \\ \hline
+		$T_c \ \ \ \ \ \ [K]$ & 1.2 & 9.6 & 7.2 \\
+		$B_c(0) \ \ \ \ [mT]$ & 99 & 198 & 80 \\
+		$\Delta C/C_n$ (Experimental) & 1.4 & 1.9 & 2.7 \\ \hline
+	\end{tabular}
+	\label{表1}
+	\end{table}
+	\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+	可以计算：
+	\[
+		(\Delta C)_{T_c} = T_c \left. \left( \frac{\partial (S_s - S_n)}{\partial T} \right) \right\vert_{T_c} = \frac{4\mu_0 H_c^2(0)}{T_c}.
+	\]
+	对于正常态，热熔为：
+	\[
+		C_n = \gamma T_c.
+	\]
+	利用$\frac{H_c^2(0)}{T_c^2} = \frac{\gamma}{2\mu_0}$则有：
+	\[
+		\frac{\Delta C}{C_n} = 2.
+	\]
+	如果带入实验数据，其中$\gamma' = \gamma \times \frac{\rho}{M}$，可以计算得
+	\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		{} & Al & Nb & Pb \\ \hline
+		$\Delta C/C_n$ & {1.60} & {1.92} & {2.40} \\ 
+		\hline
+	\end{tabular}
+	\end{table}
+	\end{tcolorbox}
+	
+	\item 根据超导典型的微观理论-BCS理论，正常态和超导态单位体积自由能的差是$(1/4)N_F \Delta^2(0)$。这里$N_F$为费米面附近的电子态密度，$\Delta(0)$是$T=0$的超导能隙。利用$Sommerfeld$自由电子表达式以及表2中所列的$\Delta(0)$，电子比热系数$\gamma$，摩尔质量$M$和密度$\rho$值，计算$\Delta C/C_n$。
+	\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		{} & Al & Nb & Pb \\ \hline
+		$\Delta(0) \ \ \ \ \ \ \ [meV]$ & 0.17 & 1.52 & 1.37 \\
+		$\gamma \ [mJ \ mol^{-1} \ K^{-2}]$ & 1.35 & 7.79 & 2.98 \\
+		$M \ \ \ \ \ \ \ \ [g \ mol^{-1}]$ & 27.0 & 92.9 & 207.2 \\
+		$\rho \ \ \ \ \ \ \ \ [g \ cm^{-3}]$ & 2.7 & 8.4 & 11.4 \\
+		\hline
+	\end{tabular}
+	\end{table}
+	\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+	根据$Sommerfeld$自由电子模型，可以计算费米面处态密度为：
+	\[
+		N_F = \frac{1}{2\pi^2} \left( \frac{2m}{\hbar^2} \right)^{3/2} \sqrt{E_F} = \frac{m}{\pi^2\hbar^2} \left( \frac{3\pi^2 N}{V}. \right)^{1/3}.
+	\]
+	利用$\frac{\rho V}{M} = \frac{N}{N_A}$可得$\frac{N}{V} = \frac{\rho N_A}{M}$。则态密度为：
+	\[
+		N_F = \frac{m}{\pi^2\hbar^2} \left( 3\pi^2 \frac{\rho N_A}{M} \right)^{1/3}.
+	\]
+	正常态与超导态单位体积自由能的差为：
+	\[
+		\frac{1}{4} N_F \Delta^2(0) = \frac{1}{2}\mu_0 H_c^2.
+	\]
+	则比热跳变变化为：
+	\[
+		\frac{\Delta C}{C_n} = \frac{\mu_0 T_c}{\gamma T_c}\left( \frac{\partial H_c}{\partial T} \right)^2 = \frac{4\mu_0 H_c^2}{\gamma' T_c^2}.
+	\]
+	其中:
+	\[
+		\gamma' = \gamma\frac{\rho}{M}.
+	\]
+	代入数据可以计算得到：
+	\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		{} & Al & Nb & Pb \\ \hline
+		$\Delta C/C_n$ & {0.77} & {0.18} & {0.93} \\ 
+		\hline
+	\end{tabular}
+	\end{table}
+	\end{tcolorbox}
+	
+	\item 如何扣除晶格比热贡献。
+	\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+	Using a high resolution differential technique we could determined  from 1.8 to 300 K the difference in electronic terms between $YBa_2(Cu_{1-y}Zn_y)_3O{7-\delta}(0\leq y\leq 0.1)$ and a $YBa_2(Cu_{0.93}Zn_{0.07})_30_{7-\delta^*}$. reference sample for which superconductivity was almost entirely suppressed ($\delta$ and $\delta*~0.03$)
+	\end{tcolorbox}
+\end{enumerate}
+
+\end{enumerate}
+\end{document}
+
+\begin{tcolorbox}[breakable, colback = black!5!white, colframe = black]
+
+\end{tcolorbox}

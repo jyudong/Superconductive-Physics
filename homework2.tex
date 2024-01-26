@@ -1,0 +1,133 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{listings}
+\RequirePackage[most]{tcolorbox}
+%\usepackage[most]{tcolorbox}
+\usepackage{float}     %可以在colorbox环境下添加table环境 此时，\begin{table}[H] 位置需要H
+\usepackage{fontspec}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+%\newCJKfontfamily{\heiti}[]
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{超导物理第二次作业}
+\author{董建宇 ~~ 202328000807038}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}[1.]
+
+\item 根据Ginzburg-Landau理论自由能，推导相应的Ginzburg-Landau方程，并简要讨论边界条件。
+\begin{align*}
+	&\frac{1}{2m}(-i\hbar\nabla - q\vec{A})^2\Psi + \alpha \Psi + \beta \vert \Psi \vert^2 \Psi = 0 \\
+	&\vec{J}_s = \frac{q\hbar}{2mi}(\Psi^*\nabla\Psi - \Psi\nabla\Psi^*) - \frac{q^2}{m^*} \vert \Psi \vert^2 \vec{A} = \frac{q \vert \Psi \vert^2}{m^*} (\hbar\nabla \theta - q\vec{A})
+\end{align*}
+其中$\Psi = \vert \Psi \vert e^{i\theta}$。
+
+\begin{proof}
+单位体积Gibbs自由能为：
+\begin{align*}
+	g_{SH} =& f_n + \alpha\vert \Psi \vert^2 + \frac{\beta}{2} \vert \Psi \vert^4 + \frac{1}{2m} \vert (-i\hbar\nabla - eA) \Psi \vert^2 + \frac{b^2}{2\mu_0} - \vec{b} \cdot \vec{H} \\
+	=& f_n + \alpha \Psi \Psi^* + \frac{\beta}{2} \Psi^2{\Psi^*}^2 + \frac{1}{2m}(-i\hbar\nabla - eA)\Psi(i\hbar\nabla-eA)\Psi^* + \frac{(\nabla \times \vec{A})^2}{2\mu_0} - (\nabla \times \vec{A}) \cdot \vec{H}.
+\end{align*}
+对$\Psi^*$取变分，即$\Psi^* \to \Psi^* + \delta \Psi^*$，可得：
+\begin{align*}
+	&g_{SH} + \delta g \\
+	=& f_n + \alpha\Psi(\Psi^*+\delta\Psi^*) + \frac{\beta}{2}\Psi^2(\Psi^*+\delta\Psi^*)^2 + \frac{1}{2m} (-i\hbar\nabla - eA) \Psi (i\hbar\nabla - eA) (\Psi^*+\delta \Psi^*) \\
+	&+ \frac{(\nabla\times \vec{A})^2}{2\mu_0} - (\nabla\times\vec{A}) \cdot \vec{H} \\
+	=& g_{SH} + (\alpha \Psi + \beta \vert \Psi \vert^2\Psi) \delta\Psi^* + \frac{1}{2m}(-i\hbar\nabla - eA) \Psi (i\hbar\nabla - eA) \delta\Psi^*.
+\end{align*}
+Gibbs自由能取极值，则有$\delta g$的积分等于0，即：
+\begin{align*}
+	\int \delta g d\vec{r} =& \int (\alpha \Psi + \beta \vert \Psi \vert^2\Psi) \delta\Psi^* d\vec{r} + \int \frac{1}{2m}(-i\hbar\nabla - eA) \Psi (i\hbar\nabla - eA) \delta\Psi^* d\vec{r} \\
+	=& \int \left(\alpha \Psi + \beta \vert \Psi \vert^2 \Psi + \frac{1}{2m}(-i\hbar\nabla - eA)^2\Psi \right) \delta \Psi^* d\vec{r} \\
+	&+ \frac{i\hbar}{2m} \int \nabla \cdot (-i\hbar\nabla-eA) \Psi \delta\Psi^* d\vec{r} \\
+	=& \int \left(\alpha \Psi + \beta \vert \Psi \vert^2 \Psi + \frac{1}{2m}(-i\hbar\nabla - eA)^2\Psi \right) \delta \Psi^* d\vec{r} \\
+	&+ \frac{i\hbar}{2m} \int (-i\hbar\nabla-eA) \Psi \delta\Psi^* \cdot d\vec{S}.
+\end{align*}
+即当满足边界条件
+\[
+	\vec{n} \cdot (-i\hbar\nabla - e\vec{A}) \Psi = 0
+\]
+
+时，$\delta g$积分中第二项为零，则$\int \delta g d\vec{r} = 0$得到：
+\[
+	\frac{1}{2m}(-i\hbar\nabla-e\vec{A})^2\Psi + \alpha \Psi + \beta \vert \Psi \vert^2 \Psi = 0.
+\]
+
+对$\vec{A}$取变分，即$\vec{A} \to \vec{A} + \delta \vec{A}$，可得：
+\begin{align*}
+	&g_{SH} + \delta g \\
+	=& f_n + \alpha\vert \Psi \vert^2 + \frac{\beta}{2} \vert \Psi \vert^4 + \frac{1}{2m} \vert (-i\hbar\nabla - e(\vec{A}+\delta\vec{A})) \Psi \vert^2 \\
+	&+ \frac{(\nabla \times (\vec{A}+\delta\vec{A}))^2}{2\mu_0} - \nabla \times (\vec{A}+\delta\vec{A}) \cdot \vec{H} \\
+	=& g_{SH} + \frac{1}{2m}((i\hbar\nabla\Psi + e\vec{A}\Psi) \cdot e\delta\vec{A} \Psi^* - e\delta\vec{A}\Psi \cdot (i\hbar\nabla\Psi^*-e\vec{A}\Psi^*)) + (\nabla \times \delta\vec{A}) \cdot \left( \frac{1}{\mu_0}\vec{B} - \vec{H} \right) \\
+	=& g_{SH} + \left( \frac{ie\hbar}{2m}(\Psi^*\nabla\Psi-\Psi\nabla\Psi^*) + \frac{e^2}{m} \vert \Psi \vert^2 \vec{A} \right) \cdot \delta\vec{A} + (\nabla \times \delta\vec{A}) \cdot \left( \frac{1}{\mu_0}\vec{B} - \vec{H} \right).
+\end{align*}
+
+Gibbs自由能取极值，则对$\delta g$的积分等于0，即：
+\begin{align*}
+	\int \delta g d^3\vec{r} =& \int \left( \frac{ie\hbar}{2m}(\Psi^*\nabla\Psi-\Psi\nabla\Psi^*) + \frac{e^2}{m} \vert \Psi \vert^2 \vec{A} \right) \cdot \delta \vec{A} d^3\vec{r} + \int (\nabla \times \delta\vec{A}) \cdot \left( \frac{1}{\mu_0}\vec{B} - \vec{H} \right) d^3\vec{r} \\
+	=& \int \left( \frac{ie\hbar}{2m}(\Psi^*\nabla\Psi-\Psi\nabla\Psi^*) + \frac{e^2}{m} \vert \Psi \vert^2 \vec{A} \right) \cdot \delta \vec{A} d^3\vec{r} + \int \left( \nabla \times \left( \frac{1}{\mu_0}\vec{B} - \vec{H} \right) \right) \cdot \delta\vec{A} d^3\vec{r} \\
+	&+ \int \nabla \cdot \left( \left( \frac{1}{\mu_0}\vec{B} - \vec{H} \right) \times \delta \vec{A} \right) d^3\vec{r} \\
+	=& \int \left( \frac{ie\hbar}{2m}(\Psi^*\nabla\Psi-\Psi\nabla\Psi^*) + \frac{e^2}{m} \vert \Psi \vert^2 \vec{A} + \vec{J}_s \right) \cdot \delta \vec{A} d^3\vec{r} \\
+	&+ \int \nabla \cdot \left( \left( \frac{1}{\mu_0}\vec{B} - \vec{H} \right) \times \delta \vec{A} \right) d^3\vec{r}
+\end{align*}
+
+则当满足边界条件
+\[
+	\vec{n} \times \left( \frac{1}{\mu_0}\vec{B} - \vec{H} \right) = 0
+\]
+
+时，$\delta g$积分中第二项为零，则$\int \delta g d^3\vec{r} = 0$得到：
+\[
+	\vec{J}_s = \frac{q\hbar}{2mi}(\Psi^*\nabla\Psi - \Psi\nabla\Psi^*) - \frac{q^2}{m^*} \vert \Psi \vert^2 \vec{A} = \frac{q \vert \Psi \vert^2}{m^*} (\hbar\nabla \theta - q\vec{A}).
+\]
+
+\end{proof}
+
+\medskip
+
+\item 利用GL理论中得到的相干长度$\xi_{GL}$，穿透深度$\lambda_{GL}$以及热力学临界磁场$H_C$的表达式，推导如下关系：
+\[
+	H_C = \frac{\Phi_0}{2\sqrt{2}\pi\mu_0\xi_{GL}\lambda_{GL}}.
+\]
+\end{enumerate}
+
+\begin{proof}
+
+相干长度$\xi_{GL}$，穿透深度$\lambda_{GL}$分别为：
+\[
+	\xi_{GL} = \sqrt{\frac{\hbar^2}{2m^*\vert \alpha(T) \vert}}; \ \ \ \lambda_{GL} = \sqrt{\frac{m^*}{\mu_0n_Sq^2}}.
+\]
+
+热力学临界磁场$H_C$满足：
+\[
+	-\frac{\alpha^2}{2\beta} = -\frac{1}{2}\mu_0 H_C^2.
+\]
+
+则有：
+\begin{align*}
+	H_C^2 =& \frac{\alpha^2}{\beta\mu_0} = \frac{\vert \alpha \vert}{\mu_0} n_S \\
+	=& \frac{1}{\mu_0} \frac{\hbar^2}{2m^*\xi_{GL}^2} \frac{m^*}{\mu_0q^2\lambda_{GL}^2} \\
+	=& \frac{\Phi_0^2}{8\pi^2\mu_0^2\xi_{GL}^2\lambda_{GL}^2}.
+\end{align*}
+
+其中$\Phi_0 = h/e$，两侧开平方可得：
+\[
+	H_C = \frac{\Phi_0}{2\sqrt{2}\pi\mu_0\xi_{GL}\lambda_{GL}}.
+\]
+
+\end{proof}
+
+
+\end{document}
