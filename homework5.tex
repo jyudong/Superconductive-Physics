@@ -1,0 +1,116 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm,geometry,xcolor,soul,graphicx}
+\usepackage{titlesec}
+\usepackage{enumerate}
+%\usepackage{lipsum} used a paragraph to test the environment 
+\usepackage{listings}
+%\RequirePackage[most]{tcolorbox}
+\usepackage{braket}
+\allowdisplaybreaks[4] %align公式跨页
+\usepackage{xeCJK}
+\setCJKmainfont[AutoFakeBold = true]{Kai}
+\geometry{left=0.7in, right=0.7in, top=1in, bottom=1in}
+
+\renewcommand{\baselinestretch}{1.3}
+
+\title{超导物理第五次作业}
+\author{董建宇 ~~ 202328000807038}
+
+%\setlength{\parindent}{2pt}
+
+\begin{document}
+
+\maketitle
+
+\textbf{1.}从BCS基态能隙方程出发推导同位素效应。
+\begin{proof}
+考虑有限温度情况，能隙方程为
+\[
+	\Delta_k(T) = \sum_{k'} V_{kk'} \frac{\Delta_{k'}}{2E_{k'}} \left( 1 - \frac{2}{1+e^{\beta E_k}} \right).
+\]
+
+取近似$\Delta_k = \Delta_{k'} = \Delta, \ V_{kk'} = V$，则方程简化为：
+\[
+	1 = \frac{V}{2} \sum_k \frac{1}{\sqrt{\epsilon^2(k) + \Delta^2}} \tanh \frac{\sqrt{\epsilon^2(k) + \Delta^2}}{2k_BT}.
+\]
+
+求和化为积分，则有：
+\[
+	\frac{1}{N(0)V} = \int_0^{\hbar\omega_D} \frac{d\epsilon}{\sqrt{\epsilon^2 + \Delta^2}}\tanh \frac{\sqrt{\epsilon^2 + \Delta^2}}{2k_BT}.
+\]
+
+当$T = T_C$时，$\Delta(T_C) = 0$，则有：
+\[
+	\frac{1}{N(0)V} = \int_0^{\hbar\omega_D} \frac{d\epsilon}{\epsilon} \tanh\frac{\epsilon}{2k_BT_C} \approx \ln \frac{\hbar\omega_D}{2k_BT_C} + \ln \frac{4e^\gamma}{\pi}.
+\]
+
+整理可得：
+\[
+	k_BT_C = 1.13\hbar\omega_D e^{-\frac{1}{N(0)V}}.
+\]
+
+即$T_C \propto \omega_D \propto M^{-1/2}$，即超导转变温度与$\frac{1}{\sqrt{M}}$呈正相关。
+\end{proof}
+
+\medskip
+
+\textbf{2.}从费米求的图像出发，说明两个电子总动量为零，形成库珀对时，由吸引位势造成能量降低最大。
+\begin{proof}
+在费米球上两总动量为零的电子$(k, -k)$的吸引位势使能量降低$V$。
+
+若考虑两总动量不为零的电子$(k_1, k_2) = (k'+\delta k, -k'+\delta k)$，其中$k' = \frac{k_1+k_2}{2}, \ \delta k = \frac{k_1-k_2}{2}$，总可以选取一惯性系$S'$，使两电子在$S'$中总动量为零，$S'$即质心系，在$S'$系中，$(k'. -k')$电子吸引位势造成能量降低，但由于$S'$系相对实验室参考系有非零动量$\delta k$，则导致能量升高$\frac{1}{2}(2m)\left(\frac{\hbar\delta k}{m}\right)^2 = \frac{\hbar^2\delta k^2}{m} \geq 0$。
+
+则为了最大程度降低能量，令$\delta k = 0$，即两电子总动量为零时，由吸引位势造成的能量降低最大。
+\end{proof}
+
+\medskip
+
+\textbf{3.}试用测不准关系估计传统超导体Cooper Pair的尺寸。
+\begin{proof}
+记形成Cooper Pair的两个电子间距为$\xi$，则动量不确定度为$\delta p \sim \frac{\hbar}{\xi}$，动能不确定度为：
+\[
+	\delta\left( \frac{p^2}{2m^*} \right) = \frac{p}{m^*} \delta p \sim \frac{p_F}{m^*} \frac{\hbar}{\xi}.
+\]
+
+只有当$\delta\left( \frac{p^2}{2m^*} \right)<\Delta(0)$时，两电子才能形成稳定的Cooper Pair，即
+\[
+	\xi > \frac{\hbar p_F}{m^*\Delta(0)}.
+\]
+\end{proof}
+
+\medskip
+
+\textbf{4.}从有限温度下的BCS能隙方程，推导$T_C$附近能隙随温度变化的关系。
+\begin{proof}
+有限温度能隙方程为：
+\[
+	\Delta_k(T) = \sum_{k'} V_{kk'} \frac{\Delta_{k'}}{2E_{k'}} \left( 1- \frac{2}{1+e^{\beta E_k}} \right).
+\]
+
+取$\Delta_k(T) = \Delta_{k'}(T) = \Delta(T), \ V_{kk'} = V$，则有：
+\[
+	1 = \frac{V}{2} \sum_k \frac{1}{\sqrt{\epsilon^2(k) + \Delta^2}} - V \sum_k \frac{1}{\sqrt{\epsilon^2(k) + \Delta^2}} \times \frac{2}{1+\exp(\beta \sqrt{\epsilon^2(k) + \Delta^2})}.
+\]
+
+当$T\to 0$时，有：
+\[
+	1 = \frac{V}{2} \sum_k \frac{1}{\sqrt{\epsilon^2(k) + \Delta^2}} \simeq N(0)V \ln \frac{2\hbar\omega_D}{\Delta(0)}.
+\]
+
+即
+\[
+	N(0)V \ln \frac{2\hbar\omega_D}{\Delta(0)} = N(0)V \ln \frac{2\hbar\omega_D}{\Delta(T)} - 2N(0)V \int_0^{\hbar\omega_D} \frac{d\epsilon}{\sqrt{\epsilon^2(k) + \Delta^2}} \times \frac{1}{1+ \exp(\beta\sqrt{\epsilon^2(k) + \Delta^2})}.
+\]
+\[
+	\Longrightarrow \ln \frac{\Delta(0)}{\Delta(T)} = 2\int_0^{\hbar\omega_D} \frac{d\epsilon}{\sqrt{\epsilon^2(k) + \Delta^2}} \times \frac{1}{1+ \exp(\beta\sqrt{\epsilon^2(k) + \Delta^2})}.
+\]
+
+当$\vert T_C - T \vert \ll T_C$时，
+\[
+	\Delta(T) \propto \Delta(0) \sqrt{\frac{8}{7\xi(3)}}\left( 1- \frac{T}{T_C} \right)^{1/2} \propto \left( 1- \frac{T}{T_C} \right)^{1/2}.
+\]
+\end{proof}
+
+
+\end{document}
